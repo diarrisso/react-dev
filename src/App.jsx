@@ -1,25 +1,28 @@
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import CGUCheckbox from './components/CGUCheckbox'
+import InputSearch from './components/InputSearch'
 import './App.css'
 
 const title = "bonjours les gens masingacite";
 const style = { color: "red"};
 const showTitle = true;
 
-const toDos = [
-  'presenter React',
-  'prsenter le jsx',
-  'creer des composants'
+const PRODUCTS = [
+  { category: "Fruits", price: "$1", stocked: true, name: 'Appple' },
+  { category: "Fruits", price: "$2", stocked: true, name: 'Banana' },
+  { category: "Fruits", price: "$3", stocked: false, name: 'Cherry' },
+  { category: "Fruits", price: "$4", stocked: true, name: 'Date' },
+  { category: "Vegetables", price: "$5", stocked: true, name: 'Eggplant' },
+  { category: "Vegetables", price: "$6", stocked: false, name: 'Fennel' },
+  { category: "Vegetables", price: "$7", stocked: true, name: 'Garlic' },
+  { category: "Vegetables", price: "$8", stocked: true, name: 'Horse radish'}
 
 ]
 
 
-
-
-
 function App() {
-
 
 
 const handleOnchange = (e) => {
@@ -40,6 +43,7 @@ const reset = () => {
   const [ firstname, setFirstname] = useState('masingacite diarriso') 
 
   const [checked, setChecked] = useState(false);
+  const [isTermsAccepte, setIsTermsAccepte] = useState(false);
   
 console.log("false" , checked);
 
@@ -54,10 +58,12 @@ console.log("false" , checked);
 
     <input type='checkbox' name='check' checked={checked} onChange={togglerCheck}/>
 
-    <button type='submit' disabled={!checked} > Submit</button>
+    <CGUCheckbox checked={isTermsAccepte} onCheck={setIsTermsAccepte} />
+
+    <button type='submit' disabled={!checked && !isTermsAccepte} > Submit</button>
+
 
   </form>
 }
-
 
 export default App
