@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState, useSyncExternalStore } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -14,65 +14,50 @@ const toDos = [
 
 ]
 
-const handleOnclick = () => {
-  alert('salut tout le monde');
-}
+
+
 
 
 function App() {
 
-  const [count, setCount] = useState(0)
-
-  const [person, setPerson] = useState({
-    firstname: "mamadi",
-    lastname: "diarrisso",
-    age: 18 
 
 
-  })
+const handleOnchange = (e) => {
+ 
+  setFirstname(e.target.value)
+}
 
-
-
-const incrementAge = () => {
-
-  setPerson({...person, age: person.age + 1,  firstname: person.firstname = "masingacite"})
+const handlSubmit = (e) => {
+  e.preventDefault()
+  console.log("salut", new FormData(e.target).get('firstname'))
 }
 
 
-
-const increment = () => {
-
-  setCount((count) => count + 1)
+const reset = () => {
+  setFirstname('')
 }
 
+  const [ firstname, setFirstname] = useState('masingacite diarriso') 
 
-  return (
-    <>
-      { 
-          showTitle ? <Title color="green">Mon Composant</Title> : <p> no</p>
-      }
-
-      <ul>
-        { toDos.map(todo =>(<li key={todo}>{todo}</li>))}
-      </ul>
-
-      <p> Compteur: {count}</p>
-      <button onClick={increment}>Incremente</button>
-
-      <p> Personne Age: {person.age}</p>
-      <p> Personne  firstname: {person.firstname}</p>
-      <button onClick={incrementAge}>Age Person Incremente</button>
-
-     </>
-  )
-}
-
-
-function Title ({ color, children , hidden, ...props }) {
-
+  const [checked, setChecked] = useState(false);
   
-  
-  return <h1 onClick={handleOnclick}  style={{color: color}}>{children}</h1>
+console.log("false" , checked);
+
+  const togglerCheck = () => {
+    setChecked(!checked)
+    console.log(checked);
+  }
+
+  return <form onSubmit={handlSubmit}>
+      
+    <input type='text' name='firstname'  onChange={handleOnchange} defaultValue={"test"}/>
+
+    <input type='checkbox' name='check' checked={checked} onChange={togglerCheck}/>
+
+    <button type='submit' disabled={!checked} > Submit</button>
+
+  </form>
 }
+
 
 export default App
